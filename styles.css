@@ -1,0 +1,23 @@
+.gameCell {
+	width: 100px;
+	height: 100px;
+	background-color: blueviolet;
+}
+
+.square {
+	background: rgb(163, 201, 250);
+	position: relative;
+	width: 100%;
+}
+
+.square:after {
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+
+.content {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}

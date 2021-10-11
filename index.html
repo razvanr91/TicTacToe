@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>PageTitle</title>
+    <title>Tic Tac Toe</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,9 +14,31 @@
 </head>
 
 <body>
-       <div class="container">
-           <h1 class="mt-5">Basic Template </h1>
-           <p class="lead">Simple template to start your design with</p>
+       <div class="container d-flex flex-column justify-content-center text-center w-sm-100">
+            <h1 class="my-2">Tic Tac Toe</h1>
+            <h3 class="mt-2">Player turn</h3>
+           <div class="row align-self-center justify-content-center w-sm-100 mt-3">
+               <div class="row">
+                   <div id="oneOne" class="col square mx-2 my-2"></div>
+                   <div id="oneTwo" class="col square mx-2 my-2"></div>
+                   <div id="oneThree" class="col square mx-2 my-2"></div>
+               </div>
+               <div class="row">
+                   <div id="twoOne" class="col square mx-2 my-2"></div>
+                   <div id="twoTwo" class="col square mx-2 my-2"></div>
+                   <div id="twoThree" class="col square mx-2 my-2"></div>
+               </div>
+               <div class="row">
+                   <div id="threeOne" class="col square mx-2 my-2"></div>
+                   <div id="threeTwo" class="col square mx-2 my-2"></div>
+                   <div id="threeThree" class="col square mx-2 my-2"></div>
+               </div>
+               <div id="resultContainer" class="container d-flex flex-column align-items-center">
+                   <h2 id="outcomeText">Winner</h2>
+                   <button id="reset" class="btn btn-primary">Play again!</button>
+               </div>
+
+           </div>
        </div>
 
     <!-- Bootstrap JS -->
