@@ -1,20 +1,12 @@
 // Global variables
 let gameOver = false;
 let draw = false;
-let totalMoves = 0;
 let player = "X";
 let gameBoardMatrix = [
 	["", "", ""],
 	["", "", ""],
 	["", "", ""],
 ];
-
-let playerWinFirstLineHorizontal =
-	gameBoardMatrix[0][0] === player &&
-	gameBoardMatrix[0][1] === player &&
-	gameBoardMatrix[0][2] === player;
-
-console.log(playerWinFirstLineHorizontal);
 
 // App elements
 let gameBoard = document.getElementById("gameBoard");
@@ -130,13 +122,7 @@ function checkDraw() {
 }
 
 function checkWin(row, column) {
-	if (checkWinHorizontal(row)) {
-		gameOver = true;
-		endGame();
-	} else if (checkWinVertical(column)) {
-		gameOver = true;
-		endGame();
-	} else if (checkWinDiagonal()) {
+	if (checkWinHorizontal(row) || checkWinVertical(column) || checkWinDiagonal()) {
 		gameOver = true;
 		endGame();
 	} else if (checkDraw()) {
@@ -177,14 +163,13 @@ function switchPlayer() {
 	switch (player) {
 		case "X":
 			player = "0";
-			currentPlayer.innerHTML = "It's 0's turn";
 			break;
 		case "0":
 			player = "X";
-			currentPlayer.innerHTML = "It's X's turn";
 			break;
 		default:
 			player = "X";
-			currentPlayer.innerHTML = "It's X's turn";
 	}
+
+	currentPlayer.innerHTML = `It's ${player}'s turn`;
 }
