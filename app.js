@@ -1,6 +1,6 @@
 // Global variables
-let xMoves = 0;
-let zeroMoves = 0;
+let gameOver = false;
+let draw = false;
 let totalMoves = 0;
 let player = "X";
 let gameBoardMatrix = [
@@ -115,33 +115,57 @@ function checkWinDiagonal() {
 	);
 }
 
+function checkDraw() {
+	return (
+		gameBoardMatrix[0][0] !== "" &&
+		gameBoardMatrix[0][1] !== "" &&
+		gameBoardMatrix[0][2] !== "" &&
+		gameBoardMatrix[1][0] !== "" &&
+		gameBoardMatrix[1][1] !== "" &&
+		gameBoardMatrix[1][2] !== "" &&
+		gameBoardMatrix[2][0] !== "" &&
+		gameBoardMatrix[2][1] !== "" &&
+		gameBoardMatrix[2][2] !== ""
+	);
+}
+
+function checkWin(row, column) {
+	if (checkWinHorizontal(row)) {
+		gameOver = true;
+		endGame();
+	} else if (checkWinVertical(column)) {
+		gameOver = true;
+		endGame();
+	} else if (checkWinDiagonal()) {
+		gameOver = true;
+		endGame();
+	} else if (checkDraw()) {
+		draw = true;
+		endGame();
+	} else {
+		switchPlayer();
+	}
+}
+
 function addToSquare(row, column, element) {
 	if (gameBoardMatrix[row][column] === "") {
 		gameBoardMatrix[row][column] = player;
 		element.innerHTML = gameBoardMatrix[row][column];
-		totalMoves++;
-		if (totalMoves >= 5) {
-			let winHorizontal = checkWinHorizontal(row) ? endGame() : "";
-			let winVertical = checkWinVertical(column) ? endGame() : "";
-			let winDiagonal = checkWinDiagonal() ? endGame() : "";
-		} else if (totalMoves === 9) {
-			player = "Nobody";
-			endGame();
-		}
-		switchPlayer();
+		checkWin(row, column);
 	} else {
 		generateAlert("danger", "Choose other square. This one is already taken!");
 	}
 }
 
 function endGame() {
-	if (totalMoves === 9) {
-		generateAlert("warning", "Nobody won.");
-		currentPlayer.innerHTML = "Draw";
-	} else {
+	if (gameOver) {
 		generateAlert("success", `Player ${player} has won!`);
 		currentPlayer.innerHTML = `Player ${player} won!`;
+	} else if (draw) {
+		generateAlert("warning", "Nobody won.");
+		currentPlayer.innerHTML = "Draw";
 	}
+
 	return gameBoard.removeEventListener("click", playGame);
 }
 
@@ -152,12 +176,10 @@ function playAgain() {
 function switchPlayer() {
 	switch (player) {
 		case "X":
-			xMoves++;
 			player = "0";
 			currentPlayer.innerHTML = "It's 0's turn";
 			break;
 		case "0":
-			zeroMoves++;
 			player = "X";
 			currentPlayer.innerHTML = "It's X's turn";
 			break;
